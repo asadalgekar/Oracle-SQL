@@ -1,0 +1,84 @@
+# ORDER BY
+- The ORDER BY clause in Oracle SQL is used to sort the result set of a SELECT query based on one or more columns. 
+- Sorting can be in ascending (ASC), default or descending (DESC) order. 
+- ORDER BY cluase comes last in the SELECT statement.
+- Handling NULLs:
+    NULLS FIRST: Places NULL values at the beginning.
+    NULLS LAST: Places NULL values at the end.
+
+Syntax:
+------
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition
+ORDER BY column1 [ASC|DESC] [, column2 [ASC|DESC], ...] [NULLS FIRST|NULLS LAST];
+
+# employees Table
+--------------------------------------------------------------------------------------------------------
+| employee_id | first_name | last_name | email                     | salary | manager_id | hire_date   |
+|-------------|------------|-----------|---------------------------|--------|------------|-------------|
+| 1           | John       | Doe       | john.doe@example.com      | 75000  | NULL       | 01-JAN-2023 |
+| 2           | Jane       | Smith     | jane.smith@example.com    | 50000  | 1          | 02-JAN-2023 |
+| 3           | Alice      | Johnson   | alice.johnson@example.com | 70000  | 1          | 03-JAN-2023 |
+| 4           | Tom        | Brown     | tom.brown@example.com     | 60000  | 1          | 04-JAN-2023 |
+| 5           | Emily      | Davis     | emily.davis@example.com   | NULL   | 2          | 05-JAN-2023 |
+--------------------------------------------------------------------------------------------------------
+
+1. Sorting by a Single Column in Ascending Order
+Objective: Retrieve all employees sorted by salary in ascending order.
+
+SELECT first_name, last_name, salary
+FROM employees
+ORDER BY salary ASC;
+
+# Sorted by Salary (Ascending)
+------------------------------------
+| first_name | last_name | salary  |
+|------------|-----------|---------|
+| Emily      | Davis     | NULL    |
+| Jane       | Smith     | 50000   |
+| Tom        | Brown     | 60000   |
+| Alice      | Johnson   | 70000   |
+| John       | Doe       | 75000   |
+------------------------------------
+
+Explanation:
+-----------
+NULL Values: By default, NULL values appear first in ascending order.
+
+2. Sorting by Multiple Columns
+Objective: Retrieve all employees sorted first by manager_id ascending and then by salary descending.
+
+SELECT first_name, last_name, salary, manager_id
+FROM employees
+ORDER BY manager_id ASC, salary DESC;
+
+# Sorted by Manager ID (Ascending) and Salary (Descending)
+------------------------------------------------
+| first_name | last_name | salary | manager_id |
+|------------|-----------|--------|------------|
+| John       | Doe       | 75000  | NULL       |
+| Jane       | Smith     | 50000  | 1          |
+| Tom        | Brown     | 60000  | 1          |
+| Alice      | Johnson   | 70000  | 1          |
+| Emily      | Davis     | NULL   | 2          |
+------------------------------------------------
+
+3. Handling NULLs with ORDER BY
+Objective: Retrieve all employees sorted by salary in ascending order, placing NULL salaries last.
+
+SELECT first_name, last_name, salary
+FROM employees
+ORDER BY salary ASC NULLS LAST;
+
+# Sorted by Salary (Ascending) with NULLs Last
+------------------------------------
+| first_name | last_name | salary  |
+|------------|-----------|---------|
+| Jane       | Smith     | 50000   |
+| Tom        | Brown     | 60000   |
+| Alice      | Johnson   | 70000   |
+| John       | Doe       | 75000   |
+| Emily      | Davis     | NULL    |
+------------------------------------
+
