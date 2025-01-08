@@ -29,6 +29,17 @@ VALUES ('Bob', 'Williams', 'bob.williams@example.com', '2233445566', 2, 2, 55000
 2. UPDATE Command
 Purpose: Modifies existing rows of data in a table.
 
+Syntax:
+-------
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+Explanation:
+------------
+"SET" is primarily used within the "UPDATE" statement to specify which columns in a table should be updated and what values to assign to them.
+
+
 # employees Table
 ------------------------------------------------------------------------------------------
 | employee_id | first_name | last_name | email                     | salary | manager_id |
@@ -42,7 +53,6 @@ UPDATE employees
 SET salary = salary + 5000
 WHERE employee_id = 2;
 
-"SET" is primarily used within the "UPDATE" statement to specify which columns in a table should be updated and what values to assign to them.
 
 # employees Table
 ------------------------------------------------------------------------------------------
@@ -80,6 +90,31 @@ WHERE employee_id = 4;
 
 4. MERGE Command (Advanced DML)
 Purpose: Combines INSERT and UPDATE operations into a single statement, useful for upserting data.
+
+Syntax:
+------
+MERGE INTO target_table alias1
+USING source_table alias2
+ON (condition)
+WHEN MATCHED THEN
+    UPDATE SET column1 = value1, column2 = value2, ...
+WHEN NOT MATCHED THEN
+    INSERT (column1, column2, ...)
+    VALUES (value1, value2, ...);
+
+Explanation:
+-----------
+MERGE INTO: Specifies the target table that will receive the data.
+target_table: The table where data will be inserted or updated.
+alias1: An alias for the target table to simplify references.
+USING: Indicates the source of the data to be merged.
+source_table: The table or dataset providing the new or updated data.
+alias2: An alias for the source table.
+ON (condition): Defines the condition that determines how rows from the source and target tables are matched.
+WHEN MATCHED THEN: Specifies the action to take when a match is found (usually an UPDATE).
+UPDATE SET: Assigns new values to the specified columns in the target table.
+WHEN NOT MATCHED THEN: Specifies the action to take when no match is found (usually an INSERT).
+INSERT (column1, column2, ...) VALUES (value1, value2, ...): Defines the columns and corresponding values to insert as new rows in the target table.
 
 # employees Table
 ------------------------------------------------------------------------------------------
