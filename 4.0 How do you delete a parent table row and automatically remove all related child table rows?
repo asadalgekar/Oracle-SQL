@@ -1,0 +1,77 @@
+# How do you delete a parent table row and automatically remove all related child table rows?
+---------------------------------------------------------------------------------------------
+Oracle Database strictly enforces referential integrity to ensure that relationships between tables remain consistent.
+
+If a parent table row is referenced by a child table through a foreign key, Oracle blocks the deletion of that parent row to prevent leaving orphaned child records.
+
+
+departments (Parent Table)
+---------------------------
+-------------------------------------------------
+| DEPARTMENT_ID | DEPARTMENT_NAME | LOCATION_ID |
+-------------------------------------------------
+|       1       |       IT        |      1      |
+|       2       |      Sales      |      2      |
+|       3       |    Marketing    |      3      |
+-------------------------------------------------
+
+employees (Child Table)
+--------------------
+---------------------------------------------------------------------------------------
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME |    EMAIL                  | DEPARTMENT_ID    |
+--------------------------------------------------------------------------------------
+|      1      |    John    |    Doe    | john.doe@example.com      |                1 |
+|      2      |    Jane    |   Smith   | jane.smith@example.com    |                2 |
+|      3      |   Alice    |  Johnson  | alice.johnson@example.com |                3 |
+|      4      |    Bob     | Williams  | bob.williams@example.com  |                1 |
+---------------------------------------------------------------------------------------
+
+
+❌ Attempt to Delete a Parent Row
+--------------------------
+DELETE FROM departments
+WHERE department_id = 1;
+
+🔴 Result:
+----------
+ORA-02292: integrity constraint violated - child record found
+
+
+# Solution:
+----------
+
+Step 1: Modify the Foreign Key
+----------------------------
+ALTER TABLE employees
+DROP CONSTRAINT fk_department;
+
+ALTER TABLE employees
+ADD CONSTRAINT fk_department
+FOREIGN KEY (department_id)
+REFERENCES departments(department_id)
+ON DELETE CASCADE;
+
+Step 2: Delete the Parent Row
+--------------------------
+DELETE FROM departments
+WHERE department_id = 1
+
+
+# Parent Table: Dept
+--------------------
+-------------------------------------------------
+| DEPARTMENT_ID | DEPARTMENT_NAME | LOCATION_ID |
+-------------------------------------------------
+|       2       |      Sales      |      2      |
+|       3       |    Marketing    |      3      |
+-------------------------------------------------
+
+# Child Table: Employees
+-----------------------
+------------------------------------------------------------------------------------
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME |    EMAIL                  | DEPARTMENT_ID |
+------------------------------------------------------------------------------------
+|      2      |    Jane    |   Smith   | jane.smith@example.com    |    2          |
+|      3      |   Alice    |  Johnson  | alice.johnson@example.com |    3          |
+------------------------------------------------------------------------------------
+
