@@ -8,6 +8,7 @@ They ensure that only valid data is entered, maintaining the reliability of the 
 2. TLC: Can involve one or multiple columns, Declared after all column definitions
 
 1. Primary Key: 
+---------------
 - PK constraint requires that each row has a unique value for the column or columns and it does not allow null values.
 - Whenever a column declared as PK:
   - Column is forced to be Not Null.
@@ -33,11 +34,43 @@ CREATE TABLE table_name (
     CONSTRAINT constraint_name PRIMARY KEY (column1, column2, ...)
 );
 
+Drop Primary Key Constraint from an Existing Table:
+-------------------------------------------------
+Removes the primary key constraint from a table.
+
+ALTER TABLE table_name
+DROP PRIMARY KEY;
+
+Add Primary Key Constraint to an Existing Table:
+------------------------------------------------
+Adds a primary key constraint to a specific column in an existing table.
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name
+PRIMARY KEY (column_name);
+
 2. Unique Constraints 
+---------------------
 - Ensure that all values in a column or a combination of columns are unique across the table.
 - Can be CLC or TLC.
 
+Drop UNIQUE Constraint from an Existing Table:
+---------------------------------------------
+Removes the unique constraint, allowing duplicate values in the specified column.
+
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+
+Add UNIQUE Constraint to an Existing Table:
+---------------------------------------------
+Enforces unique values in the specified column to prevent duplicates.
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name
+UNIQUE (column_name);
+
 3. Foreign Key
+--------------
 - Ensure referential integrity by enforcing that a value in one table matches a value in another table's primary key.
 - To create foreign key at the table level we write FOREIGN KEY keywords followed by REFERENCES keyword followed by the name of the related table and the name of the related column in parenthesis.
 
@@ -49,6 +82,22 @@ CREATE TABLE child_table (
     -- other columns
     CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES parent_table(parent_column)
 );
+
+Drop FOREIGN KEY Constraint from an Existing Table:
+---------------------------------------------------
+Removes the foreign key constraint, breaking the relationship between child and parent tables.
+
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+
+Add FOREIGN KEY Constraint to an Existing Table:
+-------------------------------------------------
+Creates a relationship between the child table and the parent table, enforcing referential integrity.
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name
+FOREIGN KEY (child_column)
+REFERENCES parent_table(parent_column);
 
 # Handling Deletions of Primary Table Rows
 -----------------------------------------
