@@ -1,0 +1,109 @@
+# SELECT Statament
+
+SELECT column1, column2, ...           [Specify column list]
+FROM table_name                        [Specifies the table to query]
+WHERE condition                        [Filters rows based on conditions]
+ORDER BY column [ASC | DESC]           [Sorts the result set]
+FETCH FIRST n ROWS ONLY;               [Limits the number of rows returned (Oracle 12c+)]
+
+# Order:
+-------
+
+1. SELECT      → Columns to retrieve  
+2. FROM        → Table(s) to query  
+3. WHERE       → Row-level filtering  
+4. GROUP BY    → Grouping rows for aggregation  
+5. HAVING      → Filtering grouped data  
+6. ORDER BY    → Sorting the final result  
+7. LIMIT/FETCH → Restricting the number of rows (Oracle: FETCH, MySQL: LIMIT)
+
+🔍 Key Rules for GROUP BY and ORDER BY
+----------------------------------------
+GROUP BY must always come before ORDER BY.
+ORDER BY works on grouped data when used with GROUP BY.
+HAVING filters groups after grouping, whereas WHERE filters rows before grouping.
+
+
+Column Modifications
+--------------------
+1. Aliases (AS) – Temporarily renames columns or tables.
+
+Syntax: SELECT first_name AS name FROM employees;
+
+2. Literals – Adds static text or values in the result.
+
+Syntax: SELECT 'Welcome' FROM dual;
+
+3. Concatenation (||) – Joins strings or columns.
+
+Syntax: SELECT first_name || ' ' || last_name FROM employees;
+
+
+Example:
+-------
+SELECT first_name || ' ' || last_name AS "Full Name" FROM employees;
+
+------------
+|Full Name |
+|----------|
+|John Doe  |
+|----------|
+|Jane Smith|
+------------
+
+# Filtering Data
+-----------------
+1. WHERE – Filters rows based on conditions.
+
+Syntax: SELECT * FROM employees WHERE salary > 50000;
+
+2. Comparison Operators (=, !=, <, >, <=, >=) – Compares values.
+
+Syntax: SELECT * FROM employees WHERE department_id = 2;
+
+3. Logical Operators (AND, OR, NOT) – Combines conditions.
+
+Syntax: SELECT * FROM employees WHERE salary > 50000 AND department_id = 2;
+
+4. BETWEEN ... AND ... – Checks if a value falls within a range.
+
+Syntax: SELECT * FROM employees WHERE salary BETWEEN 40000 AND 60000;
+
+5. IN (Set) – Checks if a value matches any in a set.
+
+Syntax: SELECT * FROM employees WHERE department_id IN (1, 2, 3);
+
+6. LIKE – Matches patterns with wildcards (%, _).
+
+Syntax: SELECT * FROM employees WHERE first_name LIKE 'A%';
+
+7. IS NULL / IS NOT NULL – Checks for NULL values.
+
+Syntax: SELECT * FROM employees WHERE manager_id IS NULL;
+
+# Managing Results
+------------------
+
+1. DISTINCT – Removes duplicate values.
+
+Syntax: SELECT DISTINCT department_id FROM employees;
+
+2. ORDER BY – Sorts results (ASC by default, DESC for descending).
+
+Syntax: SELECT * FROM employees ORDER BY salary DESC;
+
+3. LIMIT / ROWNUM – Limits the number of rows returned.
+
+Syntax (Oracle): SELECT * FROM employees WHERE ROWNUM <= 5;
+Syntax (MySQL/PostgreSQL): SELECT * FROM employees LIMIT 5;
+
+# Grouping Data
+----------------
+
+1. GROUP BY – Groups data based on columns.
+
+Syntax: SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;
+
+2. HAVING – Filters grouped data (used with GROUP BY).
+
+Syntax: SELECT department_id, COUNT(*) FROM employees GROUP BY department_id HAVING COUNT(*) > 5;
