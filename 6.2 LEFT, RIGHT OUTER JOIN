@@ -1,0 +1,76 @@
+#  LEFT OUTER JOIN (LEFT JOIN)
+----------------------------------
+-Purpose: Returns all rows from the left table and matching rows from the right table.
+-If no match exists in the right table, NULL is returned.
+-both LEFT OUTER JOIN and RIGHT OUTER JOIN require a common column to establish a relationship between the two tables.
+-The ON clause defines how the tables are related by comparing matching columns.
+-Without a common column, the join cannot determine how to match rows.
+
+
+# Syntax:
+-------
+SELECT table1.column_name, table2.column_name
+FROM table1
+RIGHT OUTER JOIN table2
+ON table1.common_column = table2.common_column;
+
+# Exmaple
+---------
+
+Employees
+--------
+||| EMPLOYEE_ID ||| FIRST_NAME ||| DEPARTMENT_ID |||
+|||-------------|||------------|||---------------|||
+|||      1      |||    John    |||       1       |||
+|||      2      |||    Jane    |||       2       |||
+|||      3      |||   Alice    |||       3       |||
+
+Department
+----------
+||| DEPARTMENT_ID ||| DEPARTMENT_NAME |||
+|||---------------|||-----------------|||
+|||       1       |||       IT        |||
+|||       2       |||      Sales      |||
+|||       4       |||    Finance      |||
+
+Query
+----
+SELECT e.first_name, d.department_name
+FROM employees e
+LEFT OUTER JOIN departments d
+ON e.department_id = d.department_id;
+
+Result
+-----
+||| FIRST_NAME ||| DEPARTMENT_NAME |||
+|||------------|||-----------------|||
+|||    John    |||       IT        |||
+|||    Jane    |||      Sales      |||
+|||   Alice    |||      NULL       |||
+
+# RIGHT OUTER JOIN
+-------------------
+-Purpose: Returns all rows from table2 and matching rows from table1.
+-Non-matching rows in table1 are filled with NULL.
+
+Syntax
+--------
+SELECT table1.column_name, table2.column_name
+FROM table1
+RIGHT OUTER JOIN table2
+ON table1.common_column = table2.common_column;
+
+Query
+-----
+SELECT employees.first_name, departments.department_name
+FROM employees
+RIGHT OUTER JOIN departments
+ON employees.department_id = departments.department_id;
+
+Result
+------
+||| FIRST_NAME ||| DEPARTMENT_NAME |||
+|||------------|||-----------------|||
+|||    John    |||       IT        |||
+|||    Jane    |||      Sales      |||
+|||    NULL    |||   Marketing     |||
