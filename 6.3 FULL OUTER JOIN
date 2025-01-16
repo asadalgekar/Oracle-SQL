@@ -1,0 +1,52 @@
+# FULL OUTER JOIN
+-----------------
+-Combines the results of LEFT OUTER JOIN and RIGHT OUTER JOIN.
+-Returns all rows from both tables.
+-Fills with NULL where there is no match.
+
+# Syntax
+--------
+SELECT table1.column_name, table2.column_name
+FROM table1
+FULL OUTER JOIN table2
+ON table1.common_column = table2.common_column;
+
+# Example
+---------
+EMPLOYEES Table (Left Table)
+-------------------------
+||| EMPLOYEE_ID ||| FIRST_NAME ||| DEPARTMENT_ID |||
+|||-------------|||------------|||---------------|||
+|||      1      |||    John    |||       1       |||
+|||      2      |||    Jane    |||       2       |||
+|||      3      |||   Alice    |||       3       |||
+
+DEPARTMENTS Table (Right Table)
+------------------------
+||| DEPARTMENT_ID ||| DEPARTMENT_NAME |||
+|||---------------|||-----------------|||
+|||       1       |||       IT        |||
+|||       2       |||      Sales      |||
+|||       4       |||    Finance      |||
+
+FULL OUTER JOIN Query
+----------------------
+SELECT e.first_name, d.department_name
+FROM employees e
+FULL OUTER JOIN departments d
+ON e.department_id = d.department_id;
+
+Result
+-------
+||| FIRST_NAME ||| DEPARTMENT_NAME |||
+|||------------|||-----------------|||
+|||    John    |||       IT        |||
+|||    Jane    |||      Sales      |||
+|||   Alice    |||      NULL       |||
+|||    NULL    |||    Finance      |||
+
+Explanation
+-----------
+-John and Jane have matching departments (IT and Sales).
+-Alice has no matching DEPARTMENT_ID in DEPARTMENTS → NULL.
+-Finance has no matching employee → NULL in the FIRST_NAME column.
