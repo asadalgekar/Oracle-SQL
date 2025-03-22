@@ -1,4 +1,4 @@
-# Constraints
+#Constraints
 --------------
 Constraints are rules applied to table columns to enforce the integrity and accuracy of the data stored within the table.
 They ensure that only valid data is entered, maintaining the reliability of the database.
@@ -12,7 +12,6 @@ They ensure that only valid data is entered, maintaining the reliability of the 
 - PK constraint requires that each row has a unique value for the column or columns and it does not allow null values.
 - Whenever a column declared as PK:
   - Column is forced to be Not Null.
-  - Column is forced to contain only null values.
   - An index is created for the column.
 - Table can have only one PK.
 
@@ -34,7 +33,7 @@ CREATE TABLE table_name (
     CONSTRAINT constraint_name PRIMARY KEY (column1, column2, ...)
 );
 
-Drop Primary Key Constraint from an Existing Table:
+# Drop Primary Key Constraint from an Existing Table:
 -------------------------------------------------
 Removes the primary key constraint from a table.
 
