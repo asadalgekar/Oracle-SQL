@@ -172,3 +172,11 @@ MODIFY column_name datatype NULL;
 5. CHECK Constraint
 Ensures that all values in a column satisfy a specific condition.
 Can be both CLC, TLC
+
+# View Table Constraints
+------------------------
+
+SELECT constraint_name, constraint_type, status
+FROM user_constraints
+WHERE table_name = 'MY_TABLE';
+
