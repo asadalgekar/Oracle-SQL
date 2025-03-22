@@ -6,6 +6,7 @@
 
 1. Using ROWNUM
 Purpose: Restricts the number of rows returned by a query based on their position in the result set.
+Use it with where clause.
 
 Syntax:
 ------
