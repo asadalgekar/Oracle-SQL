@@ -1,5 +1,6 @@
 # DML
 - Data Manipulation Language (DML) in Oracle SQL is used to manage data within schema objects.
+- They are not auto-committed (unless explicitly committed), allowing you to roll back changes if needed
 - The primary DML commands are INSERT, UPDATE, and DELETE. These commands allow you to add, modify, and remove data from tables.
 
 1. INSERT Command
