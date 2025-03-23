@@ -1,0 +1,81 @@
+# DDL
+-----
+Data Definition Language (DDL) is used to define, modify, and remove schema objects (such as tables, views, indexes, etc.) in the database.
+DDL commands are auto-committed, meaning that changes become permanent immediately after execution.
+The primary DDL commands include CREATE, ALTER, DROP, and TRUNCATE.
+
+1. CREATE 
+------------------
+Purpose:
+Creates new database objects such as tables.
+
+Syntax:
+------
+CREATE TABLE table_name (
+    column1 datatype [constraint],
+    column2 datatype [constraint],
+    ...
+    CONSTRAINT constraint_name PRIMARY KEY (column1 [, column2, ...])
+);
+
+2. Alter
+-------
+The ALTER command is used to modify the structure of an existing database object (most commonly a table).
+
+What ALTER Can Do:
+------------------
+Add Columns:
+You can add one or more columns to an existing table without affecting existing data.
+
+Modify Columns:
+Change the datatype, size, or nullability of an existing column. Note that certain modifications might be restricted if data already exists.
+
+Drop Columns:
+Remove columns that are no longer needed. This operation permanently deletes the column and its data.
+
+Rename Columns or Tables:
+Starting with Oracle 9i, you can rename a column in a table or rename the table itself.
+
+Manage Constraints:
+Add or drop constraints (e.g., primary keys, foreign keys, unique constraints) as needed.
+
+Syntax:
+------
+ALTER TABLE table_name
+ADD column_name datatype;
+
+3. Drop
+------
+Permanently removes an object (or objects) and all associated data from the database.
+Once executed, changes are auto-committed, meaning the object cannot be recovered (except via backup).
+
+What Drop Can Do:
+---------------
+Tables:
+Removes an entire table along with its data.
+
+Views:
+Removes a view used to present data from one or more tables.
+
+dexes:
+Deletes indexes created for performance optimization.
+
+Sequences:
+Removes sequences used for generating unique numbers.
+
+Synonyms:
+Deletes alternative names for database objects.
+
+Stored Procedures/Functions/Packages:
+Removes PL/SQL objects like procedures, functions, or packages.
+
+Triggers:
+Removes triggers that automatically execute DML operations.
+
+4. Truncate
+-----------
+Removes all rows from a table while preserving the table structure for future use.
+
+Syntax:
+------
+TRUNCATE TABLE table_name;
